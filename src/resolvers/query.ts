@@ -18,7 +18,14 @@ const query: IResolvers = {
         async raceSelect(_: void, { year, round }, { dataSources } ) {
             return await dataSources.races.getYearRound(year, round).then(
                 (data: any) => data.MRData.RaceTable.Races[0])
-        }
+        },
+
+        async historyDrivers(_: void, { pageElements, page }, { dataSources } ) {
+            //Aqui retornamos la respuesta
+            return await dataSources.drivers.getDrivers(pageElements, page).then(
+                (data: any) => data.MRData.DriverTable.Drivers
+            )
+        },
     }
 };
 
