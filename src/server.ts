@@ -1,3 +1,4 @@
+import { dataSources } from './data';
 // Añadir los imports
 import express from 'express';
 import compression from 'compression';
@@ -19,7 +20,11 @@ async function init() {
     // Inicializamos el servidor de Apollo
     const server = new ApolloServer({
         schema,
-        introspection: true // Necesario
+        introspection: true, // Necesario
+        dataSources: () => ({
+            seasons: new dataSources.SeasonsData(),
+            races: new dataSources.RacesData()
+        })
     });
 
     server.applyMiddleware({ app });
